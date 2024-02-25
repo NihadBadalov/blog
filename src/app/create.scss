@@ -1,0 +1,43 @@
+body {
+  color: #0c0c0c;
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+
+  & > .heading {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+    gap: 1rem;
+
+    h1 {
+      text-align: center;
+    }
+
+    a {
+      font-size: 0.75rem;
+      font-style: italic;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+}
