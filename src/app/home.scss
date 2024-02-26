@@ -15,7 +15,7 @@ body {
   flex-flow: column nowrap;
   align-items: center;
 
-  & > .heading {
+  &>.heading {
     display: flex;
     flex-flow: row nowrap;
     align-items: baseline;
@@ -48,25 +48,21 @@ body {
       width: 90%;
       padding: 0.5rem 1.5rem;
 
+      position: relative;
       display: flex;
-      flex-flow: column nowrap;
-      align-items: flex-start;
+      flex-flow: row wrap;
+      align-items: baseline;
+      gap: 1rem;
 
-      .heading {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: baseline;
-        gap: 1rem;
+      .date {
+        font-size: 0.75rem;
+        font-style: italic;
+      }
 
-        .title {
-          font-size: 2rem;
-          font-weight: 700;
-        }
-
-        .date {
-          font-size: 0.75rem;
-          font-style: italic;
-        }
+      button {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.25rem;
       }
     }
   }

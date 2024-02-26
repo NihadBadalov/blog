@@ -1,16 +1,36 @@
-import { select } from "@/lib/db";
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
 import "./home.scss";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-  const articles = await select({
-    select: {
-      id: true,
-      contents: true,
-      publication_date: true,
-    }
-  });
+export default function Home() {
+  const router = useRouter();
+  const [articles, setArticles] = useState<{ id: number; contents: string; publication_date: Date; }[]>([]);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const response = await fetch('/api/articles');
+      const fetchedArticles = await response.json();
+      console.log('fetched articles', fetchedArticles);
+
+      setArticles(fetchedArticles);
+    };
+
+    fetchArticles();
+  }, []);
+
+  function deletePost(id: number) {
+    fetch(`/api/article/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      console.log('sent');
+      router.refresh();
+    }).catch(() => {
+      console.log('Couldn\'t delete the blog');
+    });
+  }
 
   return (
     <>
@@ -20,14 +40,14 @@ export default async function Home() {
           <Link href="/create">publish a blog</Link>
         </div>
         <main className="center articles">
-          {...articles.toReversed().map(a => {
+          {articles.toReversed().map(a => {
             return (
-              <div className={`article article-${a.id}`}>
-                <div className="heading">
-                  <p className="title">{a.title}</p>
-                  <p className="date">{a.publication_date.toLocaleDateString()}</p>
-                </div>
+              <div key={a.id} className={`article article-${a.id}`}>
                 <p className="contents">{a.contents}</p>
+                <p className="date">{a.publication_date as unknown as string}</p>
+                <button type="button" onClick={() => deletePost(a.id)}>
+                  Delete
+                </button>
               </div>
             );
           })}

@@ -1,14 +1,17 @@
 'use client'
-import { createArticle } from "@/app/actions";
-import "./../create.scss";
+import { createArticle } from "../actions";
+import "../create.scss";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default async function Home() {
+  const router = useRouter();
+
   async function onSubmit(formData: FormData) {
     await createArticle(
-      formData.get('title') as unknown as string,
       formData.get('contents') as unknown as string,
     );
+    router.push('/');
   }
 
   return (

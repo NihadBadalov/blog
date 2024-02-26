@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function insert(title: string, contents: string) {
+export async function insertBlog(contents: string) {
   return prisma.article.create({
     data: {
       contents: contents,
@@ -11,9 +11,17 @@ export async function insert(title: string, contents: string) {
   });
 }
 
+export async function deleteBlog(articleId: number) {
+  return prisma.article.delete({
+    where: {
+      id: articleId,
+    },
+  });
+}
+
 type ArticleFindManyParams = Parameters<typeof prisma.article.findMany>[0];
-export async function select(options: ArticleFindManyParams) {
-  return prisma.article.findMany();
+export async function selectBlog(options: ArticleFindManyParams) {
+  return prisma.article.findMany(options);
 }
 
 /* main()

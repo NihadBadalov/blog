@@ -1,8 +1,7 @@
 'use server'
 
-import { insert } from "@/lib/db"
+import { insertBlog } from "@/lib/db";
 
- 
-export async function createArticle(title: string, contents: string) {
-  return insert(title, contents);
+export async function createArticle(contents: string) {
+  return insertBlog(contents);
 }
