@@ -1,8 +1,8 @@
-'use client'
+'use client';
 import { createArticle } from "../actions";
-import "../create.scss";
+import "@/app/create.scss";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export default async function Home() {
   const router = useRouter();
@@ -11,23 +11,28 @@ export default async function Home() {
     await createArticle(
       formData.get('contents') as unknown as string,
     );
-    router.push('/');
+    redirect('/');
   }
+
+  window.addEventListener('keypress', e => {
+    console.log(e.key);
+    if (e.key == 'esc') {
+    }
+  });
 
   return (
     <>
-      <div className="wrapper">
-        <div className="heading">
-          <h1>Create a Blog</h1>
-          <Link href="/">back</Link>
-        </div>
-        <form className="articles" action={onSubmit}>
-          <input name="title" type="text" placeholder="Write your blog title..." />
-          <input name="contents" type="text" placeholder="Write your blog content..." />
-          <main className="center submission">
+      <div key-id="create-page" className="wrapper create">
+        <div className="wrapper_inner">
+          <div className="heading">
+            <h1>Create a Blog</h1>
+            <Link href="/">back</Link>
+          </div>
+          <form className="create-articles" action={onSubmit}>
+            <input name="contents" type="text" placeholder="Write your blog content..." autoFocus={true} />
             <button type="submit">Submit</button>
-          </main>
-        </form>
+          </form>
+        </div>
       </div>
     </>
   );

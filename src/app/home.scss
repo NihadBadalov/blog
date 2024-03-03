@@ -1,68 +1,67 @@
-body {
+.wrapper.home {
   color: #0c0c0c;
   width: 100%;
   min-height: 100vh;
 
   display: flex;
   align-items: center;
-}
-
-.wrapper {
-  width: 100%;
-  min-height: 100vh;
-
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-
-  &>.heading {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: baseline;
-    gap: 1rem;
-
-    h1 {
-      text-align: center;
-    }
-
-    a {
-      font-size: 0.75rem;
-      font-style: italic;
-    }
-  }
-
-  main,
-  form {
+  .wrapper_inner {
     width: 100%;
-  }
+    min-height: 100vh;
 
-  main {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    gap: 1rem;
 
-    .article {
-      background-color: #ededed;
-      border-radius: 6px;
-      width: 90%;
-      padding: 0.5rem 1.5rem;
-
-      position: relative;
+    &>.heading {
       display: flex;
-      flex-flow: row wrap;
+      flex-flow: row nowrap;
       align-items: baseline;
       gap: 1rem;
 
-      .date {
+      h1 {
+        text-align: center;
+      }
+
+      a {
         font-size: 0.75rem;
         font-style: italic;
       }
+    }
 
-      button {
-        position: absolute;
-        right: 0.5rem;
-        top: 0.25rem;
+    main,
+    form {
+      width: 100%;
+    }
+
+    main {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      gap: 1rem;
+
+      .article {
+        background-color: #ededed;
+        border-radius: 6px;
+        width: 90%;
+        padding: 0.5rem 1.5rem;
+
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: baseline;
+        gap: 1rem;
+
+        .date {
+          font-size: 0.75rem;
+          font-style: italic;
+        }
+
+        button {
+          position: absolute;
+          right: 0.5rem;
+          top: 0.25rem;
+        }
       }
     }
   }
