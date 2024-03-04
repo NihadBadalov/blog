@@ -10,8 +10,7 @@ export default function Home() {
   const [articles, setArticles] = useState<{ id: number; contents: string; publication_date: Date; }[]>([]);
 
 
-  let fetchedArticles = undefined;
-
+  // Fetching articles
   const fetchArticles = async () => {
     const response = await fetch('/api/articles');
     const fetchedArticles = await response.json();
@@ -20,16 +19,68 @@ export default function Home() {
   };
 
   useEffect(() => {
-    router.prefetch('/');
-
     fetchArticles();
 
-    window.addEventListener('keydown', e => {
-      if (e.key == 'c') {
-        router.push('/create');
+    router.prefetch('/');
+  }, [router]);
+
+  useEffect(() => {
+    // Keybinds handling
+    let deletePressed = '';
+    function handleKeybind(e: KeyboardEvent) {
+      switch (e.key) {
+        case 'c':
+          router.push('/create');
+          break;
+
+        case 'd':
+          if (deletePressed.startsWith('d')) return;
+          deletePressed += 'd';
+          break;
+
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+          deletePressed += e.key;
+          break;
+
+        case 'Enter':
+          if (!deletePressed.startsWith('d')) return;
+          if (Number.isNaN(deletePressed.slice(1))) return;
+
+
+          const postToDeletePosition = +deletePressed.slice(1);
+          let postToDeleteId;
+          for (let i = 0; i < articles.length; i++) {
+            if (postToDeletePosition - 1 === i) {
+              postToDeleteId = articles[i].id;
+              break;
+            }
+          }
+
+          if (!postToDeleteId) return;
+
+          deletePost(postToDeleteId);
+          break;
+
+        default:
+          break;
       }
-    });
-  }, [router, fetchedArticles]);
+    }
+
+    window.addEventListener('keydown', handleKeybind);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeybind);
+    }
+  }, [articles]);
 
 
   function deletePost(id: number) {
@@ -52,7 +103,9 @@ export default function Home() {
             <Link href="/create">publish a blog</Link>
           </div>
           <main key-id="articles" className="center articles">
-            {articles.map(a => {
+            {!articles.length
+                ? (<p>Loading...</p>)
+                : articles.map(a => {
               return (
                 <div key={a.id} className={`article article-${a.id}`}>
                   <p className="contents">{a.contents}</p>
@@ -67,11 +120,5 @@ export default function Home() {
         </div>
       </div>
     </>
-  );
-}
-
-function Loading() {
-  return (
-    <p>Loading...</p>
   );
 }
