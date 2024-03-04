@@ -21,6 +21,12 @@ export default function Home() {
 
   useEffect(() => {
     fetchArticles();
+
+    window.addEventListener('keydown', e => {
+      if (e.key == 'c') {
+        router.push('/create');
+      }
+    });
   }, [router, fetchedArticles]);
 
 
@@ -34,11 +40,6 @@ export default function Home() {
     });
   }
 
-  window.addEventListener('keypress', e => {
-    if (e.key == 'c') {
-      router.push('/create');
-    }
-  });
 
   return (
     <>

@@ -3,6 +3,7 @@ import { createArticle } from "../actions";
 import "@/app/create.scss";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default async function Home() {
   const router = useRouter();
@@ -14,11 +15,13 @@ export default async function Home() {
     redirect('/');
   }
 
-  window.addEventListener('keypress', e => {
-    console.log(e.key);
-    if (e.key == 'esc') {
-    }
-  });
+  useEffect(() => {
+    window.addEventListener('keydown', e => {
+      if (e.key == 'Escape') {
+        router.push('/');
+      }
+    });
+  }, []);
 
   return (
     <>
