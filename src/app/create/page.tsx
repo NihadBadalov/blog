@@ -5,7 +5,7 @@ import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default async function Home() {
+export default function Home() {
   const router = useRouter();
 
   async function onSubmit(formData: FormData) {
