@@ -16,12 +16,14 @@ export default async function Home() {
   }
 
   useEffect(() => {
+    router.prefetch('/');
+
     window.addEventListener('keydown', e => {
       if (e.key == 'Escape') {
         router.push('/');
       }
     });
-  }, []);
+  }, [router]);
 
   return (
     <>

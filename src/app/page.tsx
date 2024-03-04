@@ -20,6 +20,8 @@ export default function Home() {
   };
 
   useEffect(() => {
+    router.prefetch('/');
+
     fetchArticles();
 
     window.addEventListener('keydown', e => {
